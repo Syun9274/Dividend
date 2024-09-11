@@ -1,0 +1,17 @@
+### 관리자 로그인
+POST http://localhost:8080/auth/signin
+Content-Type: application/json
+
+{
+  "username": "Admin_1",
+  "password": "AAA"
+}
+
+### 일반 사용자 로그인
+POST http://localhost:8080/auth/signin
+Content-Type: application/json
+
+{
+  "username": "User_1",
+  "password": "BBB"
+}

@@ -1,0 +1,11 @@
+###
+POST http://localhost:8080/company
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9eyJzdWIiOiJBZG1pbl8xIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3MjYwNjc1NzYsImV4cCI6MTcyNjE1Mzk3Nn0w3Bl3ic6oGBQ8DYP9SX1H0ge_Z_OspIjT3j6ziNlR_b7Yena4DVjmfFrRexuZIlvzxaXgd1q380iDua2T5MmSA
+
+{
+"ticker": "AAA"
+}
+
+###
+GET http://localhost:8080/company

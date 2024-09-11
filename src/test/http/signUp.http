@@ -1,0 +1,39 @@
+### 관리자 계정 1
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "username": "Admin_1",
+  "password": "AAA",
+  "roles": ["ROLE_ADMIN"]
+}
+
+### 관리자 계정 2
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "username": "Admin_2",
+  "password": "AAA",
+  "roles": ["ROLE_ADMIN"]
+}
+
+### 일반 계정 1
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "username": "User_1",
+  "password": "BBB",
+  "roles": ["ROLE_USER"]
+}
+
+### 일반 계정 2
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "username": "User_2",
+  "password": "BBB",
+  "roles": ["ROLE_USER"]
+}
