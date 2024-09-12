@@ -1,5 +1,6 @@
 package com.example.dividend.controller;
 
+import com.example.dividend.exception.custom.CompanyException.EmptyTickerException;
 import com.example.dividend.model.dto.CompanyDTO;
 import com.example.dividend.model.entity.Company;
 import com.example.dividend.model.request.CompanyRequest.AddCompanyRequest;
@@ -31,7 +32,7 @@ public class CompanyController {
     public ResponseEntity<?> addCompany(@RequestBody AddCompanyRequest request) {
         String ticker = request.getTicker();
         if (ObjectUtils.isEmpty(ticker)) {
-            throw new RuntimeException("Ticker cannot be empty");
+            throw new EmptyTickerException();
         }
 
         CompanyDTO companyDTO = companyService.saveCompany(ticker);
@@ -40,6 +41,7 @@ public class CompanyController {
     }
 
     @DeleteMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteCompany() {
         return null;
     }

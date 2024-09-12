@@ -21,7 +21,7 @@ public class AutoCompleteService {
         List<Company> companyList = companyRepository.findAllByNameStartingWithIgnoreCase(keyword, limit);
 
         return companyList.stream()
-                .map(e -> e.getName())
+                .map(Company::getName)
                 .collect(Collectors.toList());
     }
 }
