@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 public class MemberException {
 
-    public static class AlreadyExistUserException extends BasicException {
+    public static final class AlreadyExistUserException extends BasicException {
 
         @Override
         public int statusCode() {
@@ -18,7 +18,7 @@ public class MemberException {
         }
     }
 
-    public static class NotExistUserException extends BasicException {
+    public static final class NotExistUserException extends BasicException {
 
         @Override
         public int statusCode() {
@@ -31,7 +31,7 @@ public class MemberException {
         }
     }
 
-    public static class WrongPassword extends BasicException {
+    public static final class WrongPassword extends BasicException {
 
         @Override
         public int statusCode() {

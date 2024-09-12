@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 public class CompanyException {
 
-    public static class NoCompanyException extends BasicException {
+    public static final class NoCompanyException extends BasicException {
 
         @Override
         public int statusCode() {
@@ -18,7 +18,7 @@ public class CompanyException {
         }
     }
 
-    public static class AlreadyExistCompanyException extends BasicException {
+    public static final class AlreadyExistCompanyException extends BasicException {
 
         @Override
         public int statusCode() {
