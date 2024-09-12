@@ -1,10 +1,8 @@
 package com.example.dividend.security;
 
-import com.example.dividend.exception.custom.SecurityException.EmptyKeyException;
 import com.example.dividend.model.enums.Authority;
 import com.example.dividend.service.MemberService;
 import io.jsonwebtoken.*;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +13,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,19 +29,6 @@ public class TokenProvider {
 
     @Value("${spring.jwt.secret}")
     private String secretKey;
-
-    private byte[] decodedKey;
-
-    @PostConstruct
-    public void init() {
-        if (secretKey != null) {
-            decodedKey = Base64.getDecoder().decode(secretKey);
-            log.info("Decoded Secret Key initialized successfully.");
-        } else {
-            log.error("Secret Key cannot be null");
-            throw new EmptyKeyException();
-        }
-    }
 
     public String generateToken(String username, List<Authority> roles) {
         Claims claims = Jwts.claims().setSubject(username);
@@ -63,7 +47,7 @@ public class TokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expireDate)
-                .signWith(SignatureAlgorithm.HS512, decodedKey)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
 
@@ -95,7 +79,7 @@ public class TokenProvider {
         try {
             log.info("Parsing claims for token");
             return Jwts.parser()
-                    .setSigningKey(decodedKey)  // Base64로 디코딩된 key를 사용
+                    .setSigningKey(secretKey)
                     .parseClaimsJws(token)
                     .getBody();
 
