@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +37,8 @@ public class CompanyService {
         return saveCompanyAndDividend(ticker);
     }
 
-    private CompanyDTO saveCompanyAndDividend(String ticker) {
+    @Transactional
+    protected CompanyDTO saveCompanyAndDividend(String ticker) {
         CompanyDTO companyDTO = yahooScraper.scrapCompanyByTicker(ticker);
         if (companyDTO == null) {
             throw new NoCompanyException();
@@ -56,5 +58,16 @@ public class CompanyService {
 
     public Page<Company> getAllCompanies(Pageable pageable) {
         return companyRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public String deleteCompany(String ticker) {
+        var company =  companyRepository.findByTicker(ticker)
+                .orElseThrow(NoCompanyException::new);
+
+        dividendRepository.deleteByCompanyId(company.getId());
+        companyRepository.delete(company);
+
+        return company.getName();
     }
 }

@@ -40,10 +40,11 @@ public class CompanyController {
         return ResponseEntity.ok(companyDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{ticker}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteCompany() {
-        return null;
+    public ResponseEntity<?> deleteCompany(@PathVariable String ticker) {
+        String companyName = companyService.deleteCompany(ticker);
+        return ResponseEntity.ok(companyName);
     }
 
 }

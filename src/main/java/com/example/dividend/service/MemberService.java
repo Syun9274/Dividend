@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.example.dividend.exception.custom.MemberException.NotExistUserException;
 import static com.example.dividend.exception.custom.MemberException.WrongPassword;
@@ -30,6 +31,7 @@ public class MemberService implements UserDetailsService {
                 .orElseThrow(NotExistUserException::new);
     }
 
+    @Transactional
     public Member registerMember(Auth.SignUp member) {
         boolean exists = memberRepository.existsByUsername(member.getUsername());
         if (exists) {
