@@ -1,12 +1,13 @@
 package com.example.dividend.service;
 
+import com.example.dividend.exception.custom.CompanyException.NoCompanyException;
+import com.example.dividend.external.ScrapResult;
+import com.example.dividend.external.scraper.Scraper;
+import com.example.dividend.model.dto.CompanyDTO;
 import com.example.dividend.model.entity.Company;
 import com.example.dividend.model.entity.Dividend;
 import com.example.dividend.repository.CompanyRepository;
 import com.example.dividend.repository.DividendRepository;
-import com.example.dividend.external.ScrapResult;
-import com.example.dividend.model.dto.CompanyDTO;
-import com.example.dividend.external.scraper.Scraper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.example.dividend.exception.custom.CompanyException.AlreadyExistCompanyException;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +30,7 @@ public class CompanyService {
     public CompanyDTO saveCompany(String ticker) {
         boolean exists = companyRepository.existsByTicker(ticker);
         if (exists) {
-            throw new RuntimeException("Company already exists");
+            throw new AlreadyExistCompanyException();
         }
 
         return saveCompanyAndDividend(ticker);
@@ -36,7 +39,7 @@ public class CompanyService {
     private CompanyDTO saveCompanyAndDividend(String ticker) {
         CompanyDTO companyDTO = yahooScraper.scrapCompanyByTicker(ticker);
         if (companyDTO == null) {
-            throw new RuntimeException("Company not found");
+            throw new NoCompanyException();
         }
 
         ScrapResult scrapResult = yahooScraper.scrap(companyDTO);

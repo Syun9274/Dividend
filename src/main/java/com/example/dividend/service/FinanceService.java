@@ -1,17 +1,19 @@
 package com.example.dividend.service;
 
+import com.example.dividend.external.ScrapResult;
+import com.example.dividend.model.dto.CompanyDTO;
+import com.example.dividend.model.dto.DividendDTO;
 import com.example.dividend.model.entity.Company;
 import com.example.dividend.model.entity.Dividend;
 import com.example.dividend.repository.CompanyRepository;
 import com.example.dividend.repository.DividendRepository;
-import com.example.dividend.external.ScrapResult;
-import com.example.dividend.model.dto.CompanyDTO;
-import com.example.dividend.model.dto.DividendDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.dividend.exception.custom.CompanyException.NoCompanyException;
 
 @Service
 @AllArgsConstructor
@@ -22,7 +24,7 @@ public class FinanceService {
 
     public ScrapResult getDividendByCompanyName(String companyName) {
         Company company = companyRepository.findByName(companyName)
-                .orElseThrow(() -> new RuntimeException("Company not found"));
+                .orElseThrow(NoCompanyException::new);
 
         List<Dividend> dividendList = dividendRepository.findByCompanyId(company.getId());
 
