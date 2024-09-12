@@ -21,7 +21,7 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> searchCompany(final Pageable pageable) {
         Page<Company> companyList = companyService.getAllCompanies(pageable);
         return ResponseEntity.ok(companyList);
