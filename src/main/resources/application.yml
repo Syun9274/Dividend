@@ -21,6 +21,11 @@ spring:
     username: sa
     password:
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
   jwt:
     # Base64 인코딩 (DividendSpringBootProjectJwtTokenForJwtAuthenticationFilterToSignIn)
     secret: RGl2aWRlbmRTcHJpbmdCb290UHJvamVjdEp3dFRva2VuRm9ySnd0QXV0aGVudGljYXRpb25GaWx0ZXJUb1NpZ25Jbg==

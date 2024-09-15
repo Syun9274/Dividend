@@ -8,6 +8,7 @@ import com.example.dividend.model.entity.Dividend;
 import com.example.dividend.repository.CompanyRepository;
 import com.example.dividend.repository.DividendRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class FinanceService {
     private final CompanyRepository companyRepository;
     private final DividendRepository dividendRepository;
 
+    @Cacheable(key = "#companyName", value = "finance")
     public ScrapResult getDividendByCompanyName(String companyName) {
         Company company = companyRepository.findByName(companyName)
                 .orElseThrow(NoCompanyException::new);
