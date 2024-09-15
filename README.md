@@ -73,8 +73,8 @@
 - [x] GET `/company/autocomplete` API 구현
 - [x] GET `/company` API 구현
 - [x] DELETE `/company/{ticker}` API 구현
-- [ ] Redis 서버 구성하기
-- [ ] Redis에 데이터 캐싱/삭제하기
+- [x] Redis 서버 구성하기
+- [x] Redis에 데이터 캐싱/삭제하기
 - [x] 적합한 로그레벨로 필요한 로그 남기기
 - [x] `ControllerAdvice`에서 에러 처리하기
 
