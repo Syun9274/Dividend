@@ -22,5 +22,10 @@ spring:
     password:
 
   jwt:
-    # Base64 인코딩
+    # Base64 인코딩 (DividendSpringBootProjectJwtTokenForJwtAuthenticationFilterToSignIn)
     secret: RGl2aWRlbmRTcHJpbmdCb290UHJvamVjdEp3dFRva2VuRm9ySnd0QXV0aGVudGljYXRpb25GaWx0ZXJUb1NpZ25Jbg==
+
+scheduler:
+  scrap:
+    # 매월 1일 오전 5시
+    yahoo: "0 0 5 1 * *"

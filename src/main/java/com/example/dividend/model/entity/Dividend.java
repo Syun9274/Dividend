@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "dividend")
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"company_id", "date"})})
 public class Dividend {
 
     @Id
